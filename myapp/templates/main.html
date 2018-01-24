@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AngularJS Routes example</title>
+	<script src="{% static "bower_components/angular/angular.js" %}" charset="utf-8"></script>
+    <script src="{% static "bower_components/angular-ui-router/release/angular-ui-router.js" %}" charset="utf-8"></script>
+
+</head>
+<body ng-app="sampleApp">
+<a ui-sref="test1">Route 1</a><br>
+<a ui-sref="test2">Route 2</a><br>
+<a ui-sref="login">Login</a><br>
+<div ui-view></div>
+    <script src="{% static "angularapp/js/app.js" %}"></script>
+    <script src="{% static "angularapp/controller/loginctrl.js" %}"> </script>
+    <script src="{% static "angularapp/services/loginsrvc.js" %}">
+    </script>
+
+</body>
+</html>
