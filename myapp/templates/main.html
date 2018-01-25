@@ -5,19 +5,23 @@
 
 <head>
     <title>AngularJS Routes example</title>
+	<link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.css" %}"></link>
 	<script src="{% static "bower_components/angular/angular.js" %}" charset="utf-8"></script>
     <script src="{% static "bower_components/angular-ui-router/release/angular-ui-router.js" %}" charset="utf-8"></script>
+	<script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
 
 </head>
 <body ng-app="sampleApp">
-<a ui-sref="test1">Route 1</a><br>
-<a ui-sref="test2">Route 2</a><br>
-<a ui-sref="login">Login</a><br>
-<div ui-view></div>
-    <script src="{% static "angularapp/js/app.js" %}"></script>
-    <script src="{% static "angularapp/controller/loginctrl.js" %}"> </script>
-    <script src="{% static "angularapp/services/loginsrvc.js" %}">
-    </script>
+	<script src="{% static "angularapp/js/app.js" %}"></script>
+	<script src="{% static "angularapp/controller/loginctrl.js" %}"> </script>
+	<script src="{% static "angularapp/services/loginsrvc.js" %}"></script>
+	<script src="{% static "angularapp/controller/registerctrl.js" %}"></script>
+	<script src="{% static "angularapp/services/registersrvc.js" %}"></script>
+
+<ui-view></ui-view>
+<!-- <div ui-view></div> -->
+
+
 
 </body>
 </html>

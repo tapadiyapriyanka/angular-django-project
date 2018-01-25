@@ -1,5 +1,4 @@
-module.controller('LoginController', function($scope, $stateParams, $state, LoginService) {
-$scope.title = "AngularJS Login Sample";
+module.controller('LoginController', function($scope, $http, $stateParams, $state, LoginService) {
 
 $scope.formData = function(data) {
 	console.log("sbjdhjfkzj");
