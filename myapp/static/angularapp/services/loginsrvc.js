@@ -1,13 +1,13 @@
 module.factory('LoginService', function($http) {
-var admin = 'admin';
-var pass = 'admin123';
-var isAuthenticated = false;
+// var admin = 'admin';
+// var pass = 'admin123';
+// var isAuthenticated = false;
 console.log("in service file");
 return {
   login : function(username, password) {
-    console.log("in login service ");
-	isAuthenticated = username === admin && password === pass;
-    console.log("is isAuthenticated = ",isAuthenticated);
+    // console.log("in login service ");
+	// isAuthenticated = username === admin && password === pass;
+    // console.log("is isAuthenticated = ",isAuthenticated);
 	var Indata = {'username' : username, 'password':password}
 	console.log("indata = ",Indata);
 	$http({

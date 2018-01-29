@@ -25,6 +25,8 @@ from myapp import views
 
 urlpatterns = [
 		url(r'^login/$', views.Login_user.as_view(), name='login'),
+		url(r'^register/$', views.Register_user.as_view(), name='register'),
+		path('activate/<str:token>/', views.activate_class.as_view(), name='activate'),
         # url('auth-jwt/', obtain_jwt_token),
         # url('auth-jwt-refresh/', refresh_jwt_token),
         # url('auth-jwt-verify/', verify_jwt_token),

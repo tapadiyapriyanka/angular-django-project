@@ -1,11 +1,9 @@
 var module = angular.module("sampleApp", ['ui.router']);
-console.log("jhgkj");
 module.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
 	$urlRouterProvider.otherwise("/login")
 	$stateProvider
-    .state('settings' , {
-           name: 'test1',
+    .state('test1' , {
            url: '/test1',
            templateUrl: '/static/angularapp/html/test1.html',
            controller: ['$scope', function ($scope) {
@@ -13,8 +11,7 @@ module.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
             }]
        })
 
-    .state('quotes', {
-           name: 'test2',
+    .state('test2', {
            url: '/test2',
            templateUrl: '/static/angularapp/html/test2.html',
            controller:['$scope', function ($scope) {
@@ -23,14 +20,12 @@ module.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
        })
 
 	.state('register',{
-		name: 'register',
 		url: '/register',
-		templateUrl: '/static/angularapp/html/login.html',
+		templateUrl: '/static/angularapp/html/register.html',
 		controller: 'RegisterController'
 	})
 
     .state('login', {
-           name: 'login',
            url: '/login',
            templateUrl: '/static/angularapp/html/login.html',
            controller: 'LoginController'

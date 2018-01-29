@@ -1,7 +1,6 @@
 module.controller('LoginController', function($scope, $http, $stateParams, $state, LoginService) {
 
-$scope.formData = function(data) {
-	console.log("sbjdhjfkzj");
+$scope.formData = function() {
 	if(LoginService.login($scope.username, $scope.password)) {
 		 $scope.error = '';
 		 $scope.username = '';
