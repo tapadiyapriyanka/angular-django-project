@@ -11,13 +11,13 @@ from django.contrib.auth import authenticate
 import jwt
 import hmac, hashlib, base64, urllib
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
-
-
+from pyee import EventEmitter
+from rest_framework import status
 # import datetime
+
 # Create your views here.
 def home(req):
 	return render(req, 'main.html', {'STATIC_URL': settings.STATIC_URL})
@@ -37,12 +37,13 @@ class Login_user(APIView):
 			print("in try case user = ",user)
 		except User.DoesNotExist:
 			return Response({'Error': "Invalid username/password"}, status="400")
-
+		print("user = ",user)
+		ee.emit('event')
 		if user:
 			payload = {'username':username, 'password' : password}
 			jwt_token = jwt.encode(payload, 'SECRET_KEY', 'HS256')
 			print("jwt token = ",jwt_token)
-			return JsonResponse({'token': jwt_token.decode('utf-8')})
+			return Response(data=jwt_token,status=status.HTTP_200_ok)
 		else:
 			return Response(
 				json.dumps({'Error': "Invalid credentials"}),
@@ -57,6 +58,7 @@ class Register_user(APIView):
 		password = request.data['password']
 		email     = request.data['email']
 		user = User.objects.create_user(username, email, password)
+
 		if user:
 			payload = {'username':username}
 			jwt_token = jwt.encode(payload, 'SECRET_KEY', 'HS256')
@@ -68,9 +70,40 @@ class Register_user(APIView):
 			to_email = request.data['email']
 			email = EmailMessage(mail_subject, message, to=[to_email])
 			email.send()
-			return HttpResponse('Please confirm your email address to complete the registration')
+			return Response(data=jwt_token,status=status.HTTP_200_ok)
+		else:
+			return Response(data="Error Occured",status=status.HTTP_400_BAD_REQUEST)
 
 class activate_class(APIView):
 	def get(self, request, *args, **kwargs):
 		token = self.kwargs['token']
-		return redirect("login")
+		user_data = jwt.decode(token, 'SECRET_KEY', algorithms=['HS256'])
+		users = User.objects.all()
+		user = User.objects.get(username=user_data['username'])
+		if user in users:
+			print("user = ",user)
+			user.is_active = True
+			user.save()
+			return redirect("home")
+		else:
+			return HttpResponse("not valid user")
+
+ee = EventEmitter()
+@ee.on('event')
+def event_handler():
+	print('BANG BANG')
+
+class forgot_password(APIView):
+	def post(self, request, *args, **kwargs):
+		print("in forgot password view..")
+		response_data = {}
+		username = request.data['username']
+		password = request.data['password']
+		confirmpass = request.data['confirmpass']
+		print("username = ",username)
+		print("password = ",password)
+		print("confirmpass = ",confirmpass)
+		u = User.objects.get(username=username)
+		u.set_password('new password')
+		u.save()
+		return HttpResponse('password changed successfully')
