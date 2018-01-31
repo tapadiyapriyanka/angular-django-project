@@ -1,3 +1,5 @@
+// This service is no longer required.
+
 module.factory('ForgotService', function($http) {
 console.log("in service file of forgot password");
 return {

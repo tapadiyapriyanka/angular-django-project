@@ -1,11 +1,16 @@
 var module = angular.module("sampleApp", ['ui.router','satellizer']);
-module.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $authProvider) {
 
-	var skipIfLoggedIn = ['$q', '$auth', function($q, $auth) {
+module.config(function($stateProvider, $urlRouterProvider, $authProvider) {
+
+	var skipIfLoggedIn = ['$q', '$auth','$state',"$timeout", function($q, $auth, $state,$timeout) {
         var deferred = $q.defer();
         console.log($auth.isAuthenticated());
         if ($auth.isAuthenticated()) {
-            deferred.reject();
+			$timeout(function () {
+				$state.go('home');
+			});
+
+            // deferred.reject();
         } else {
             deferred.resolve();
         }
@@ -18,35 +23,34 @@ module.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function
         if ($auth.isAuthenticated()) {
             deferred.resolve();
         } else {
-            $state.go('/login');
+            $state.go('login');
         }
         return deferred.promise;
     }];
 
-	$urlRouterProvider.otherwise("/login")
 
 	$stateProvider
-    .state('test1' , {
-           url: '/test1',
-           templateUrl: '/static/angularapp/html/test1.html',
-           controller: ['$scope', function ($scope) {
-                $scope.name = "Hello";
-            }],
-			resolve: {
-                loginRequired: loginRequired
-            }
-       })
-
-    .state('test2', {
-           url: '/test2',
-           templateUrl: '/static/angularapp/html/test2.html',
-           controller:['$scope', function ($scope) {
-                $scope.name = "World";
-            }],
-			resolve: {
-                loginRequired: loginRequired
-            }
-       })
+    // .state('test1' , {
+    //        url: '/test1',
+    //        templateUrl: '/static/angularapp/html/test1.html',
+    //        controller: ['$scope', function ($scope) {
+    //             $scope.name = "Hello";
+    //         }],
+	// 		resolve: {
+    //             loginRequired: loginRequired
+    //         }
+    //    })
+    //
+    // .state('test2', {
+    //        url: '/test2',
+    //        templateUrl: '/static/angularapp/html/test2.html',
+    //        controller:['$scope', function ($scope) {
+    //             $scope.name = "World";
+    //         }],
+	// 		resolve: {
+    //             loginRequired: loginRequired
+    //         }
+    //    })
 
 	.state('register',{
 		url: '/register',
@@ -66,6 +70,15 @@ module.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function
             }
 	})
 
+	.state('home',{
+		url: '/home',
+		templateUrl: '/static/angularapp/html/home.html',
+		// controller: 'HomeController',
+		resolve: {
+                loginRequired: loginRequired
+            }
+	})
+
     .state('login', {
            url: '/login',
            templateUrl: '/static/angularapp/html/login.html',
@@ -75,6 +88,5 @@ module.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function
             }
        });
 
-
-
-    }]);
+	   	$urlRouterProvider.otherwise("/home");
+    });

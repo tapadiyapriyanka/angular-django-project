@@ -1,7 +1,9 @@
+// This service is no longer required.
+
 module.factory('RegisterService', function($http) {
 var isAuthenticated = false;
 // url = "http://localhost:8000/"
-console.log("in register service file");
+console.log("in register service file this will not call");
 return {
   rest_service : function(username, password, email) {
 	  // urlPath = url.concat(path);

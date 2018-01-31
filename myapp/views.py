@@ -28,7 +28,7 @@ class Login_user(APIView):
 		response_data['token'] = '';
 		if not request.data:
 			return Response({'Error': "Please provide username/password"}, status="400")
-
+		print("request = ",request.data)
 		username = request.data['username']
 		password = request.data['password']
 		print("username and password = ",username, " ", password)
@@ -43,7 +43,8 @@ class Login_user(APIView):
 			payload = {'username':username, 'password' : password}
 			jwt_token = jwt.encode(payload, 'SECRET_KEY', 'HS256')
 			print("jwt token = ",jwt_token)
-			return Response(data=jwt_token,status=status.HTTP_200_ok)
+			response_data['token'] = jwt_token;
+			return Response(data=response_data,status=status.HTTP_201_CREATED)
 		else:
 			return Response(
 				json.dumps({'Error': "Invalid credentials"}),
@@ -70,7 +71,7 @@ class Register_user(APIView):
 			to_email = request.data['email']
 			email = EmailMessage(mail_subject, message, to=[to_email])
 			email.send()
-			return Response(data=jwt_token,status=status.HTTP_200_ok)
+			return Response(data=jwt_token,status=status.HTTP_201_CREATED)
 		else:
 			return Response(data="Error Occured",status=status.HTTP_400_BAD_REQUEST)
 
