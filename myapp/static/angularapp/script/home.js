@@ -1,9 +1,14 @@
+var count = 0
 function openNav() {
-	console.log("on open function");
-    document.getElementById("mySidenav").style.width = "250px";
-	document.getElementById("tp").style.width = "250px";
-}
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-	document.getElementById("tp").style.width = "0";
+	ans = count%2
+	count = count+1
+	if (ans == 0){
+		document.getElementById("mySidenav").style.width = "250px";
+	    document.getElementById("main").style.marginLeft = "250px";
+	}
+	else {
+		document.getElementById("mySidenav").style.width = "0";
+	    document.getElementById("main").style.marginLeft= "0";
+	}
+
 }

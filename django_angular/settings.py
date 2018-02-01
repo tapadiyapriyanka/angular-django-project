@@ -41,7 +41,15 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/',
+    },
+}
+
 MIDDLEWARE = [
+	'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	# 'django.middleware.cache.FetchFromCacheMiddleware', # This must be last
 ]
 
 ROOT_URLCONF = 'django_angular.urls'

@@ -1,22 +1,32 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header" >
-
-	<div style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;
-	</div>
+		<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;
+		</span>
     </div>
 	<div class="navbar-title">
 		<a class="navbar-brand" href="#">Priyanka Keep</a>
+	    <ul class="nav navbar-nav">
+	      <li><a href="#">Home</a></li>
+	      <li><a href="#">Page 1</a></li>
+	      <li><a href="#">Page 2</a></li>
+	      <li><a href="#">Page 3</a></li>
+		  <li class="dropdown">
+  	        <a href="#" class="dropdown-toggle" data-toggle="dropdown" type="button" >Menu <span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">
+                <li><a href="#">Home</a></li>
+                <li class="divider"></li>
+                <li><a href="#">login</a></li>
+                <li><a href="#">signup</a></li>
+				<li><a href="#">Logout</a></li>
+            </ul>
+  		</li>
+	    </ul>
 	</div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
-    </ul>
+  </div>
+</nav>
 
   <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#">Notes</a>
     <a href="#">Reminder</a>
     <a href="#">Labels</a>
@@ -24,9 +34,7 @@
     <a href="#">Archive</a>
     <a href="#">Trash</a>
   </div>
-  </div>
-</nav>
 
-<div class="tp" id="tp">
+<div id="main">
 	<p>dkgjkagklak</p>
 </div>

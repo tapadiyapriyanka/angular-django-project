@@ -16,6 +16,8 @@ from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
 from pyee import EventEmitter
 from rest_framework import status
+import redis
+from django.core.cache import cache
 # import datetime
 
 # Create your views here.
@@ -44,6 +46,12 @@ class Login_user(APIView):
 			jwt_token = jwt.encode(payload, 'SECRET_KEY', 'HS256')
 			print("jwt token = ",jwt_token)
 			response_data['token'] = jwt_token;
+
+			conn = redis.StrictRedis('localhost', decode_responses=True)
+			conn.set("pythonDict", "7777777")
+			print(conn.get("pythonDict"))
+			cache.set('token', jwt_token)
+			print(cache.get('token'))
 			return Response(data=response_data,status=status.HTTP_201_CREATED)
 		else:
 			return Response(
@@ -108,3 +116,13 @@ class forgot_password(APIView):
 		u.set_password('new password')
 		u.save()
 		return HttpResponse('password changed successfully')
+
+
+
+
+
+# user = {"Name":"Pradeep", "Company":"SCTL", "Address":"Mumbai", "Location":"RCP"}
+# user["token"]="123456"
+# conn.hmset("pythonDict", user)
+#
+# conn.hgetall("pythonDict")
